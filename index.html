@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iskra Nikolaeva - Graphic & Motion Designer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz@10..48&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,379 +13,258 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Bricolage Grotesque', sans-serif;
             background: #ffffff;
-            color: #333;
-            line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Section Styling */
         .section {
+            width: 100vw;
+            height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            gap: 60px;
-            padding: 100px 0;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .section:last-child {
-            border-bottom: none;
-        }
-
-        .section.alternate {
-            flex-direction: row-reverse;
-        }
-
-        .section-content {
-            flex: 1;
-        }
-
-        .section-image {
-            flex: 1;
-            display: flex;
             justify-content: center;
-            align-items: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        .section-image img {
+        .section img {
             width: 100%;
-            height: auto;
-            border-radius: 12px;
+            height: 100%;
+            object-fit: cover;
         }
 
-        .section-image video {
+        /* Chrome Magazine Section with Video Overlay */
+        .chrome-section {
+            background: #000;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 85%;
+            max-width: 900px;
+            aspect-ratio: 16 / 9;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            z-index: 50;
+        }
+
+        .video-overlay iframe {
             width: 100%;
-            height: auto;
+            height: 100%;
+            border: none;
             border-radius: 20px;
         }
 
-        h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            color: #1a1a1a;
-            font-weight: 700;
-        }
-
-        h2 {
-            font-size: 32px;
-            margin-bottom: 20px;
-            color: #1a1a1a;
-            font-weight: 700;
-        }
-
-        p {
-            font-size: 16px;
-            margin-bottom: 15px;
-            color: #555;
-            line-height: 1.8;
-        }
-
-        .intro-text {
-            font-size: 20px;
-            color: #666;
-            margin-bottom: 30px;
-            line-height: 1.8;
-        }
-
-        .links {
+        /* Navigation Dots */
+        .nav-dots {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
             display: flex;
-            gap: 30px;
-            margin-top: 30px;
-            flex-wrap: wrap;
-        }
-
-        a {
-            color: #333;
-            text-decoration: underline;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        a:hover {
-            color: #666;
-        }
-
-        .profile-section {
-            display: flex;
-            gap: 60px;
-            align-items: flex-start;
-        }
-
-        .profile-left {
-            flex: 0 0 auto;
-            text-align: center;
-        }
-
-        .profile-image {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 30px;
-        }
-
-        .profile-info {
-            text-align: center;
-        }
-
-        .profile-info h2 {
-            font-size: 36px;
-            margin-bottom: 30px;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
+            flex-direction: column;
             gap: 15px;
-            margin-bottom: 15px;
-            justify-content: center;
-            font-size: 16px;
+            z-index: 100;
         }
 
-        .profile-right {
-            flex: 1;
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(0, 0, 0, 0.5);
         }
 
-        .profile-right p {
-            margin-bottom: 20px;
-            text-align: justify;
+        .dot.active {
+            background: #000;
+            transform: scale(1.3);
         }
 
-        .qr-code {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            z-index: 100;
+            animation: bounce 2s infinite;
         }
 
-        .highlight {
-            font-weight: 600;
-            color: #1a1a1a;
+        .scroll-indicator p {
+            font-size: 12px;
+            color: #666;
         }
 
-        ul {
-            list-style: none;
-            margin-left: 20px;
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
         }
 
-        ul li {
-            margin-bottom: 10px;
-            position: relative;
-            padding-left: 20px;
-        }
-
-        ul li:before {
-            content: "→";
-            position: absolute;
-            left: 0;
-        }
-
-        /* Responsive Design */
         @media (max-width: 768px) {
-            .section {
-                flex-direction: column;
-                gap: 30px;
-                padding: 60px 0;
+            .nav-dots {
+                right: 15px;
+                gap: 10px;
             }
 
-            .section.alternate {
-                flex-direction: column;
+            .dot {
+                width: 10px;
+                height: 10px;
             }
 
-            h1 {
-                font-size: 36px;
-            }
-
-            h2 {
-                font-size: 24px;
-            }
-
-            .intro-text {
-                font-size: 16px;
-            }
-
-            .profile-section {
-                flex-direction: column;
-                gap: 40px;
-            }
-
-            .links {
-                gap: 20px;
+            .video-overlay {
+                width: 90%;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Section 1: Introduction -->
-        <section class="section">
-            <div class="section-content">
-                <h1>Hi, I'm Iskra</h1>
-                <p class="intro-text">I am a graphic & motion designer specialising in branding and strategic communication.</p>
-                <p class="intro-text">Based in the South West of the UK.</p>
-                <div class="links">
-                    <a href="https://drive.google.com/file/d/11agYlu9Tc-9x8cYMByfFee1wTOC04M8F/view?usp=sharing" target="_blank">Resume</a>
-                    <a href="mailto:iskranikolaeva0@gmail.com">iskranikolaeva0@gmail.com</a>
-                    <a href="http://www.linkedin.com/in/iskra-nikolaeva-316082314" target="_blank">LinkedIn</a>
-                </div>
-            </div>
-        </section>
+    <!-- Section 1: Intro -->
+    <section class="section" id="section-0">
+        <img src="images/1.png" alt="Introduction">
+    </section>
 
-        <!-- Section 2: CHROME Magazine -->
-        <section class="section alternate">
-            <div class="section-content">
-                <h2>'CHROME' Magazine</h2>
-                <p><strong>Overview:</strong> Editorial magazine project exploring the evolving world of graphic design. Independently researched, creatively directed, designed, and animated using Adobe Photoshop, Illustrator, InDesign and After Effects.</p>
-                <p>The publication explores niche topics and overlooked stories within the design industry, with each spread featuring its own distinct aesthetic and colour palette. Covering subjects from the iconic Helvetica typeface to the underrepresented achievements of women in design, the project was developed through extensive research.</p>
-                <p><strong>Deliverables:</strong></p>
-                <ul>
-                    <li>Editorial Magazine Design</li>
-                    <li>Motion Graphics Animation</li>
-                    <li>Research & Creative Direction</li>
-                    <li>Typography & Layout Design</li>
-                    <li>Concept Development</li>
-                </ul>
-            </div>
-            <div class="section-image">
-                <video controls style="border-radius: 20px;">
-                    <source src="https://vimeo.com/reviews/e4f9d4c1-296c-4cf2-bfab-4b0dc72669b4/videos/1211054726" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-        </section>
+    <!-- Section 2: Chrome Magazine with Video -->
+    <section class="section chrome-section" id="section-1">
+        <img src="images/2.png" alt="Chrome Magazine" style="position: absolute; width: 100%; height: 100%; object-fit: cover; z-index: 1;">
+        <div class="video-overlay">
+            <iframe src="https://vimeo.com/reviews/e4f9d4c1-296c-4cf2-bfab-4b0dc72669b4/videos/1211054726" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </section>
 
-        <!-- Section 3: Nelvet Cafe -->
-        <section class="section">
-            <div class="section-content">
-                <h2>Nelvet Cafe</h2>
-                <p><strong>Overview:</strong> Nelvet is a modern café brand that blends specialty coffee, artisanal bakery, and ice cream into one cohesive experience. Inspired by Neapolitan flavours and European café culture, the brand aims to create an experience that feels soft, indulgent and calm.</p>
-                <p>Developed through extensive research, including moodboards, packaging concepts, brand strategy, and visual identity exploration.</p>
-                <p><strong>Deliverables:</strong></p>
-                <ul>
-                    <li>Brand Identity Design</li>
-                    <li>Brand Pattern</li>
-                    <li>Packaging Design</li>
-                    <li>Loyalty Card Design</li>
-                    <li>Concept Development</li>
-                </ul>
-            </div>
-        </section>
+    <!-- Section 3: Nelvet -->
+    <section class="section" id="section-2">
+        <img src="images/3.png" alt="Nelvet Cafe">
+    </section>
 
-        <!-- Section 4: Roma -->
-        <section class="section alternate">
-            <div class="section-content">
-                <h2>Roma</h2>
-                <p><strong>Overview:</strong> Roma candles are a sensory experience shaped by light, colour and scent. Every candle is crafted to evoke emotion and atmosphere, turning ordinary spaces into intimate, dreamlike environments.</p>
-                <p>Soft gradients, minimal typography and glowing visuals were used to explore how these qualities can communicate meaning and influence the way a space feels. The goal was to create visuals that express calmness and a sense of quiet presense.</p>
-                <p><strong>Deliverables:</strong></p>
-                <ul>
-                    <li>Brand Identity Design</li>
-                    <li>Brand Pattern</li>
-                    <li>Packaging Design</li>
-                    <li>Business Card Design</li>
-                    <li>Hang Tag</li>
-                    <li>Concept Development</li>
-                </ul>
-            </div>
-        </section>
+    <!-- Section 4: Roma -->
+    <section class="section" id="section-3">
+        <img src="images/4.png" alt="Roma">
+    </section>
 
-        <!-- Section 5: Soul Labs -->
-        <section class="section">
-            <div class="section-content">
-                <h2>Soul Labs</h2>
-                <p><strong>Overview:</strong> Glow-Up is a conceptual branding project for a transformation agency focused on confidence, self-expression and personal style. The brand offers personalised consultations to help clients discover the makeup, colours and fashion choices that suit them best.</p>
-                <p>Inspired by modern beauty culture and online stylists, the visual identity uses clean typography and contemporary design to create a polished, aspirational aesthetic across both in-person and digital experiences.</p>
-                <p><strong>Deliverables:</strong></p>
-                <ul>
-                    <li>Brand Identity Design</li>
-                    <li>Brand Pattern</li>
-                    <li>Hang Tag</li>
-                    <li>Packaging Design</li>
-                    <li>Business Card Design</li>
-                    <li>Hang Tag</li>
-                    <li>Concept Development</li>
-                </ul>
-            </div>
-        </section>
+    <!-- Section 5: About -->
+    <section class="section" id="section-4">
+        <img src="images/5.png" alt="About">
+    </section>
 
-        <!-- Section 6: National Trust -->
-        <section class="section alternate">
-            <div class="section-content">
-                <h2>National Trust</h2>
-                <p><strong>Overview:</strong> The National Trust Assembly Rooms campaign focused on creating a series of engaging social media posts to promote the reopening of the historic venue in Bath in 2027.</p>
-                <p>Designed for Instagram, the campaign combined heritage-inspired visuals with contemporary layouts to build anticipation and increase public engagement. Developed through research, concept development, and digital design.</p>
-                <p><strong>Deliverables:</strong></p>
-                <ul>
-                    <li>Social Media Post Design</li>
-                    <li>Marketing Support</li>
-                    <li>Brand Development</li>
-                </ul>
-            </div>
-        </section>
+    <!-- Section 6: Soul Labs -->
+    <section class="section" id="section-5">
+        <img src="images/6.png" alt="Soul Labs">
+    </section>
 
-        <!-- Section 7: Bath College SU -->
-        <section class="section">
-            <div class="section-content">
-                <h2>Bath College SU</h2>
-                <p><strong>Overview:</strong> The Bath College Student Union branding project focused on creating a bold and cohesive visual identity that reflects the student community.</p>
-                <p>The project included the design of a custom logo, role-specific member badges, branded merchandise, and social media content for Instagram and TikTok. Developed through research, brand strategy, and visual identity exploration, the final outcome delivers a consistent identity across both print and digital platforms that strengthens the Student Union's presence across physical and digital platforms.</p>
-                <p><strong>Deliverables:</strong></p>
-                <ul>
-                    <li>Brand Identity Design</li>
-                    <li>Brand Pattern & Backgrounds</li>
-                    <li>Tote Bag Design</li>
-                    <li>Student Union Role Badges Design</li>
-                    <li>Concept Development</li>
-                    <li>Social Media Design & Marketing</li>
-                </ul>
-            </div>
-        </section>
+    <!-- Section 7: National Trust -->
+    <section class="section" id="section-6">
+        <img src="images/7.png" alt="National Trust">
+    </section>
 
-        <!-- Section 8: About & Contact -->
-        <section class="section" style="padding: 100px 0; border-bottom: none;">
-            <div style="width: 100%;">
-                <div class="profile-section">
-                    <div class="profile-left">
-                        <h2>Iskra<br>Nikolaeva</h2>
-                        <div class="profile-info">
-                            <div class="contact-item">
-                                <span>✉️</span>
-                                <a href="mailto:iskranikolaeva0@gmail.com">iskranikolaeva0@gmail.com</a>
-                            </div>
-                            <div class="contact-item">
-                                <span>📱</span>
-                                <span>+447748726992</span>
-                            </div>
-                            <div class="contact-item">
-                                <span>💼</span>
-                                <a href="http://www.linkedin.com/in/iskra-nikolaeva-316082314" target="_blank">LinkedIn</a>
-                            </div>
-                            <div class="contact-item">
-                                <span>📄</span>
-                                <a href="https://drive.google.com/file/d/11agYlu9Tc-9x8cYMByfFee1wTOC04M8F/view?usp=sharing" target="_blank">Resume</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="profile-right">
-                        <p>Hi, I'm Iskra, <span class="highlight">Graphic & Motion Designer</span> based in the South West of the UK. I am an experienced designer, constantly looking to improve and polish my work. I enjoy working in several work environments, including on-site, hybrid and remotely.</p>
-                        <p>My work balances <span class="highlight">graphic experimentation with polished, corporate-ready design</span>. I'm comfortable pushing creative boundaries while also creating work that meets strict brand guidelines. Whether it's branding, packaging, digital campaigns, or social content, I approach every project with curiosity, strategic thinking, and attention to detail.</p>
-                        <p>I aim to input creativity in every project I do, and I strive to deliver impactful visual solutions that help my design stand out.</p>
-                        <p><span class="highlight">Let's make a creative impact.</span></p>
-                        <div style="margin-top: 40px; display: flex; gap: 30px; align-items: center;">
-                            <div>
-                                <p style="margin-bottom: 10px;">My <a href="https://linktr.ee/iskranikolaeva0" target="_blank">Linktree</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <!-- Section 8: Bath College SU -->
+    <section class="section" id="section-7">
+        <img src="images/8.png" alt="Bath College SU">
+    </section>
+
+    <!-- Navigation Dots -->
+    <div class="nav-dots" id="navDots"></div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator" id="scrollIndicator">
+        <p>Scroll</p>
     </div>
+
+    <script>
+        const totalSections = 8;
+        let currentSection = 0;
+        let isScrolling = false;
+
+        // Create navigation dots
+        const navDots = document.getElementById('navDots');
+        for (let i = 0; i < totalSections; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'dot' + (i === 0 ? ' active' : '');
+            dot.addEventListener('click', () => scrollToSection(i));
+            navDots.appendChild(dot);
+        }
+
+        function updateDots() {
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSection);
+            });
+        }
+
+        function scrollToSection(index) {
+            currentSection = index;
+            const section = document.getElementById(`section-${index}`);
+            section.scrollIntoView({ behavior: 'smooth' });
+            updateDots();
+        }
+
+        // Wheel scroll detection
+        document.addEventListener('wheel', (e) => {
+            if (isScrolling) return;
+            isScrolling = true;
+
+            if (e.deltaY > 0) {
+                currentSection = Math.min(currentSection + 1, totalSections - 1);
+            } else {
+                currentSection = Math.max(currentSection - 1, 0);
+            }
+            
+            scrollToSection(currentSection);
+            
+            setTimeout(() => {
+                isScrolling = false;
+            }, 800);
+        }, { passive: true });
+
+        // Hide scroll indicator after first scroll
+        document.addEventListener('wheel', () => {
+            const indicator = document.getElementById('scrollIndicator');
+            if (indicator) {
+                indicator.style.display = 'none';
+            }
+        }, { once: true });
+
+        // Touch swipe support
+        let touchStartY = 0;
+        document.addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            const touchEndY = e.changedTouches[0].clientY;
+            if (touchStartY - touchEndY > 50) {
+                currentSection = Math.min(currentSection + 1, totalSections - 1);
+                scrollToSection(currentSection);
+            } else if (touchEndY - touchStartY > 50) {
+                currentSection = Math.max(currentSection - 1, 0);
+                scrollToSection(currentSection);
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown') {
+                currentSection = Math.min(currentSection + 1, totalSections - 1);
+                scrollToSection(currentSection);
+            } else if (e.key === 'ArrowUp') {
+                currentSection = Math.max(currentSection - 1, 0);
+                scrollToSection(currentSection);
+            }
+        });
+    </script>
 </body>
 </html>
